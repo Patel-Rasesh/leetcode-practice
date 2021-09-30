@@ -1,0 +1,20 @@
+#array elements and target sum could be negative integers
+class TwoSum:
+
+
+    def extractIndices(inputArray, target):
+        
+        for i in range(len(inputArray)):
+            firstNumber = inputArray[i]
+            secondNumber = target - firstNumber
+            for j in range(i+1, len(inputArray)):
+                if(inputArray[j] == secondNumber):
+                    return i, j
+            
+        return -1, -1
+        
+
+    inputArray = [-12, -45, -68, 20, 74, -11, 150]
+    target = 224
+    a, b = extractIndices(inputArray, target)
+    print("Indices are - ", a, " and ", b)
