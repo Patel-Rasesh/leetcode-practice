@@ -9,6 +9,7 @@ class Solution(object):
         explored = set()
         explored.add('0000')
         turns = 1
+        deadends = set(deadends)
         
         def Neighbors(position):
             neighbors = []
