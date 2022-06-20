@@ -5,7 +5,9 @@ class Solution(object):
         :type target: str
         :rtype: int
         """
-        queue = collections.deque([('0000', 0)])
+        # queue = collections.deque([('0000', 0)])
+        queue = []
+        queue.append('0000')
         explored = set()
         explored.add('0000')
         turns = 1
@@ -26,17 +28,22 @@ class Solution(object):
         
         if '0000' == target:
             return 0
-        
+        if '0000' in deadends:
+            return -1
         while queue:
-            currentComb, turns = queue.popleft()
-            if currentComb == target:
-                print(currentComb)
-                return turns
-            if currentComb in deadends:
-                continue
-            for eachComb in Neighbors(currentComb):
-                if eachComb not in explored:
-                    queue.append((eachComb, turns+1))
-                    explored.add(eachComb)
+            lengthOfQueue = len(queue)
+            while lengthOfQueue:
+                currentComb = queue.pop(0)
+                for eachComb in Neighbors(currentComb):
+                    if eachComb not in explored:
+                        if eachComb in deadends:
+                            continue
+                        if eachComb == target:
+                            print(eachComb)
+                            return turns
+                        queue.append(eachComb)
+                        explored.add(eachComb)
+                lengthOfQueue -= 1
+            turns += 1 
         return -1
         # print(Neighbors('3926'))
