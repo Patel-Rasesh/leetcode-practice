@@ -1,4 +1,5 @@
 from collections import Counter
+import heapq
 
 class Solution(object):
     def topKFrequent(self, nums, k):
@@ -7,12 +8,14 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        c = Counter(nums)
+        c = Counter(nums)        
+        return heapq.nlargest(k, c.keys(), key=c.get)
         
-        sortedNums = sorted(c.items(), key=lambda x:x[1], reverse=True)
-        outputArray = []
+        # sortedNums = sorted(c.items(), key=lambda x:x[1], reverse=True)
+        # outputArray = []
         
-        for index in range(k):
-            
-            outputArray.append(sortedNums[index][0])
-        return outputArray
+        
+        # for index in range(k):
+        #     outputArray.append(sortedNums[index][0])
+        # return outputArray
+        
