@@ -23,20 +23,16 @@ class Solution(object):
         heapq.heapify(heap)
     
         intervals = sorted(intervals)
-        print(intervals)
         
         heapq.heappush(heap, intervals[0][1])
         intervals.pop(0)
-        print(intervals)
-        print(heap)
-        
         
         # 2. If start time is greater than the priority node's end time, pop prioirty node and push the new interval
         while len(intervals) != 0:
-            tempNode = heapq.heappop(heap)
-            if tempNode > intervals[0][0]:
-                heapq.heappush(heap, tempNode)
-            
+            # tempNode = heapq.heappop(heap)
+            # if tempNode > intervals[0][0]:
+            if intervals[0][0] >= heap[0]:
+                heapq.heappop(heap)
             heapq.heappush(heap, intervals[0][1])
             intervals.pop(0)
     
