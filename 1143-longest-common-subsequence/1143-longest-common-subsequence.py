@@ -25,7 +25,8 @@ class Solution(object):
         # DP solution
         def LCSDP():
             # 1. Frame a 2D array, (x,y) both decreasing, and initialize with base cases
-            table = [[0] * (len(text2) + 1) for _ in range(len(text1) + 1)]
+            table = [[0] * (n+2) for _ in range(m+2)]
+            # table = [[0] * (n+2)]*(m+2)
             
             # 2. Two for loops to iterate through the table (2D array) and fill the table entries up
             for i in reversed(range(m+1)):
@@ -42,3 +43,4 @@ class Solution(object):
                     
             return table[0][0]    
         return LCSDP()
+        
