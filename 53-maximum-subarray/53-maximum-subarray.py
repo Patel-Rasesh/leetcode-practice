@@ -1,20 +1,25 @@
+import math
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-#         maxSubarray = -math.inf
-#         for i in range(len(nums)):
-#             localSum = 0
-#             for j in range(i, len(nums)):
-#                 localSum += nums[j]
-#                 maxSubarray = max(localSum, maxSubarray)
+        # 1. Start from the left most index.
+        global_max = max(nums)
+        local_sum = 0
         
-#         return maxSubarray
-
-        current_subarray = nums[0]
-        max_subarray = nums[0]
-
-        for j in range(1, len(nums)):
-            current_subarray = max(current_subarray+nums[j], nums[j])
-            max_subarray = max(max_subarray, current_subarray)
-
-        return max_subarray
+        
+        for i in range(len(nums)):
+            
+            # 1a. If that is negative, skip to the next index.
+            local_sum += nums[i]
+            if local_sum < 0:
+                local_sum = 0
+                continue
                 
+            # 1b. Else, keep adding subsequent element to it.
+            # 2. Maintain the max when you skip an element and start over.
+            global_max = max(global_max, local_sum)
+            
+            
+        return global_max
+        
+        
+        
