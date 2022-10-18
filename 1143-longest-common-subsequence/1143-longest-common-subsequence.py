@@ -5,42 +5,32 @@ class Solution(object):
         :type text2: str
         :rtype: int
         """
-        m = len(text1)-1
-        n = len(text2)-1
+        # RECURSIVE SOLUTION
+        # def LCSRecur(curA, curB):
+        #     if curA > m or curB > n:
+        #         return 0
+        #     ignore = max(LCSRecur(curA+1, curB), LCSRecur(curA, curB+1))
+        #     best = ignore
+        #     if text1[curA] == text2[curB]:
+        #         include = 1 + LCSRecur(curA+1, curB+1)
+        #         if include > ignore:
+        #             best = include
+        #     return best
+        # m = len(text1)-1
+        # n = len(text2)-1
+        # return LCSRecur(0, 0)
         
-#         Recursive solution - TLE
-#         def LCSrecur(i, j):
-#             if i > m or j > n:
-#                 return 0
-#             ignore = max(LCSrecur(i+1, j), LCSrecur(i, j+1))
-#             best = ignore
-#             if text1[i] == text2[j]:
-#                 include = 1 + LCSrecur(i+1, j+1)
-#                 if include > best:
-#                     best = include
-#             return best
+        DPTable = [[0]*(len(text2)+1) for _ in range(len(text1)+1)]
+        print(DPTable)
         
-#         return LCSrecur(0, 0)
+        for j in reversed(range(len(text2))):
+            for i in reversed(range(len(text1))):
+                ignore = max(DPTable[i+1][j], DPTable[i][j+1])
+                best = ignore
+                if text1[i] == text2[j]:
+                    include = 1 +DPTable[i+1][j+1]
+                    if include > ignore:
+                        best = include
+                DPTable[i][j] = best
         
-        # DP solution
-        def LCSDP():
-            # 1. Frame a 2D array, (x,y) both decreasing, and initialize with base cases
-            table = [[0] * (n+2) for _ in range(m+2)]
-            # table = [[0] * (n+2)]*(m+2)
-            
-            # 2. Two for loops to iterate through the table (2D array) and fill the table entries up
-            for i in reversed(range(m+1)):
-                for j in reversed(range(n+1)):
-               
-                    # 3. Rest of the code is same, only replace table entries in place of recursive calls
-                    ignore = max(table[i+1][j], table[i][j+1])
-                    best = ignore
-                    if text1[i] == text2[j]:
-                        include = 1 + table[i+1][j+1]
-                        if include > best:
-                            best = include
-                    table[i][j] = best
-                    
-            return table[0][0]    
-        return LCSDP()
-        
+        return DPTable[0][0]
